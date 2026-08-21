@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HENNA10 Affiliate Dashboard</title>
+<style>
+  :root {
+    --bg: #faf7f5;
+    --card: #ffffff;
+    --ink: #2b2320;
+    --muted: #7a6f68;
+    --accent: #a9744f;
+    --line: #ece3dd;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    padding: 32px 16px 64px;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 28px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .card .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; }
+  .card .value { font-size: 24px; font-weight: 600; color: var(--accent); }
+  .card .note { font-size: 12px; color: var(--muted); margin-top: 6px; }
+  table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid var(--line); }
+  th, td { text-align: left; padding: 10px 14px; font-size: 14px; border-bottom: 1px solid var(--line); }
+  th { background: #f4ede8; color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; }
+  tr:last-child td { border-bottom: none; }
+  .footer { color: var(--muted); font-size: 12px; margin-top: 20px; text-align: center; }
+  .empty { padding: 28px; text-align: center; color: var(--muted); background: var(--card); border-radius: 12px; border: 1px solid var(--line); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>HENNA10 Affiliate Dashboard</h1>
+    <div class="sub">Discount code: <strong>HENNA10</strong> · view only, updated automatically</div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="label">Available store credit</div>
+        <div class="value">0.00 EUR</div>
+        <div class="note">Usable on your next order at e-hairshop.com</div>
+      </div>
+      <div class="card">
+        <div class="label">Accumulating toward 50 EUR</div>
+        <div class="value">0.00 EUR</div>
+        <div class="note">Once it reaches 50 EUR, it becomes usable store credit</div>
+      </div>
+      <div class="card">
+        <div class="label">Commission rate</div>
+        <div class="value">5%</div>
+        <div class="note">of order value after the 10% discount</div>
+      </div>
+    </div>
+
+    <div class="empty">No orders with code HENNA10 yet.</div>
+
+    <div class="footer">Last updated: 21/08/2026, 09:20:37 (Warsaw time) · EXTENSIONS HAIR SHOP</div>
+  </div>
+</body>
+</html>
