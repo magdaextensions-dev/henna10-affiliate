@@ -1,0 +1,50 @@
+name: HENNA10 – naliczanie prowizji afiliacyjnej
+
+on:
+  schedule:
+    # Co godzine, o pelnej godzinie (tak blisko "na biezaco", jak da sie bez
+    # dodatkowej infrastruktury typu webhook). Zmien ten wzorzec cron, jesli
+    # wolisz inny rytm, np. raz dziennie o 6:00 UTC: "0 6 * * *",
+    # albo raz w tygodniu w poniedzialek: "0 6 * * 1".
+    - cron: "0 * * * *"
+  workflow_dispatch: {}
+    # Pozwala rowniez odpalic skrypt recznie: zakladka "Actions" -> "HENNA10..." -> "Run workflow".
+
+permissions:
+  contents: write
+
+jobs:
+  compute-commission:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Ustaw Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Policz prowizje i zaktualizuj strone podgladu
+        env:
+          SHOPIFY_STORE_DOMAIN: ${{ vars.SHOPIFY_STORE_DOMAIN }}
+          SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
+          SHOPIFY_CLIENT_SECRET: ${{ secrets.SHOPIFY_CLIENT_SECRET }}
+          AFFILIATE_CUSTOMER_ID: ${{ vars.AFFILIATE_CUSTOMER_ID }}
+          DISCOUNT_CODE: ${{ vars.DISCOUNT_CODE }}
+          COMMISSION_RATE: ${{ vars.COMMISSION_RATE }}
+          THRESHOLD_AMOUNT: ${{ vars.THRESHOLD_AMOUNT }}
+          CURRENCY_CODE: ${{ vars.CURRENCY_CODE }}
+        run: node scripts/compute-commission.mjs
+
+      - name: Zapisz wyniki w repo (historia zamowien + strona podgladu)
+        run: |
+          git config user.name "henna10-bot"
+          git config user.email "henna10-bot@users.noreply.github.com"
+          git add data/henna10_orders.json docs/index.html
+          if git diff --cached --quiet; then
+            echo "Brak zmian – nic do zapisania."
+          else
+            git commit -m "HENNA10: aktualizacja prowizji ($(date -u +%Y-%m-%d))"
+            git push
+          fi
