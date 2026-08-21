@@ -1,0 +1,13 @@
+{
+  "name": "henna10-affiliate-tracker",
+  "version": "1.0.0",
+  "description": "Nalicza prowizje afiliacyjna (kod HENNA10) dla EXTENSIONS HAIR SHOP i publikuje stronke podgladu dla partnerki.",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "run": "node scripts/compute-commission.mjs"
+  }
+}
